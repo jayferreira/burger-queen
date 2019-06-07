@@ -1,0 +1,107 @@
+import React, { Component } from 'react';
+import './App.css';
+import firebase from "./firebaseConfig";
+import Button from "../src/components/Button"
+import withFirebaseAuth from "react-with-firebase-auth";
+import {BrowserRouter as Router, Route, Redirect} from "react-router-dom";
+
+const firebaseAppAuth = firebase.auth();
+const database = firebase.firestore();
+
+// class App extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       email: "",
+//       senha: "",
+//     };
+//   }
+
+//   function App() {
+//     const objetos = [
+//       {
+//         text: "Banana",
+//         onClick: () => alert("Banana")
+//       },
+//       {
+//         text: "Peixinho",
+//         onClick: () => alert("Peixinho")
+//       }
+//     ];
+
+// render()
+//   return(
+//   <div className = "App" >
+//       <header className="App-header">
+//         <h1>#partiuBurgerQueen</h1>
+//         {
+//           objetos.map((obj) => {
+//             return <Button text={obj.text} onClick={obj.onClick} />
+//           })
+//         }
+//       </header>
+//   </div>
+// );
+// }
+
+
+class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      senha: '',
+    };
+  };
+
+  // componentDidMount() {
+  //   fetch('https:.....')
+  //     .then(response => {
+  //       this.setState({
+  //         title: response.title
+  //       })
+  //     })
+  // }
+
+  // handleChange = (event, element) => {
+  //   this.setState({
+  //     input: ""
+  //   })
+  // }
+
+  handleChange = (event, element) => {
+    const newState = this.state;
+    newState[element] = event.target.value
+    this.setState(newState);
+  }
+
+  createUser = () => {
+    this.props.createUserWithEmailAndPassword(this.state.email, this.state.senha);    
+  }
+
+  signIn = () => {
+    this.props.signInWithEmailAndPassword(this.state.email, this.state.senha) 
+    .then(() => {
+      alert("logou");
+    });
+  }
+
+  render() {
+   return (
+      <div className="Login">
+        <input value={this.state.email} placeholder="digite seu email" onChange={(e) => this.handleChange(e, "email")} ></input>
+        <input value={this.state.senha} placeholder="digite sua senha" onChange={(e) => this.handleChange(e, "senha")}  ></input>
+        <Button text="Entrar" onClick={this.signIn} />
+        
+        <button>Esqueceu a senha?</button>
+        <hr></hr>
+        <Button text="Criar Novo User" onClick={this.createUser} />
+        <hr></hr>
+      </div>
+    )
+  }
+}
+
+
+
+export default withFirebaseAuth({firebaseAppAuth,})(Login);
