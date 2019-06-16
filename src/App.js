@@ -1,21 +1,24 @@
 import React, { Component } from 'react';
 import './App.css';
-import Login from "./pages/Login"
 import Salao from "./pages/Salao"
 import Cozinha from "./pages/Cozinha"
-import {BrowserRouter as Router, Route, Redirect} from "react-router-dom";
+import Home from "./components/Home"
+// import 'typeface-roboto';
+import { BrowserRouter, Router, Route, Switch, Redirect } from "react-router-dom";
 
-function App(){
-  return(
-    <Router>
-      <div className="App">
-        <header className="App-header">
-          <Route path="/"exact component={Login} />
+
+function App() {
+  return (
+    <div className="App-header">
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={Home} />
           <Route path="/salao" component={Salao} />
           <Route path="/cozinha" component={Cozinha} />
-        </header>      
-      </div>
-      </Router>
+        </Switch>
+      </BrowserRouter>
+    </div>
+
 
   );
 }
