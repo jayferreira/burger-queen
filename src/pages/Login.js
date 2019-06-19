@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 import firebase from "../firebaseConfig";
-import Button from "../components/Button";
-import Input from "../components/Input";
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form'
+
 import withFirebaseAuth from "react-with-firebase-auth";
 import { BrowserRouter as Router, Route, Redirect, withRouter } from "react-router-dom";
-// import database from 'firebase';
 
 const firebaseAppAuth = firebase.auth();
 const database = firebase.firestore();
-
 
 class Login extends Component {
     constructor(props) {
@@ -17,7 +16,7 @@ class Login extends Component {
         this.state = {
             email: '',
             senha: '',
-            tipo: 'Salão',
+            tipo: '',
         };
     };
 
@@ -29,17 +28,14 @@ class Login extends Component {
 
     signIn = () => {
         this.props.signInWithEmailAndPassword(this.state.email, this.state.senha)
-            .then((resp) => {
-                const id = resp.user.uid;
-                if (resp){
-                database.collection("users").doc(id).get()
-                    .then(resp => {
-                        console.log(resp.data());
-                        const data = resp.data();
-                        this.props.history.push(`/${data.tipo}`);
-                        alert("logou");
-                    });
-                }
+            .then((resp) => {                 
+                    database.collection("users").doc(resp.user.uid).get()
+                        .then(resp => {
+                            console.log(resp.data());
+                            const data = resp.data();
+                            this.props.history.push(`/${data.tipo}`);
+                            alert("logou");
+                        });               
             })
     }
     render() {
@@ -48,13 +44,18 @@ class Login extends Component {
         }
         return (
             <div>
-                <Input value={this.state.email} placeholder="digite seu email" onChange={(e) => this.handleChange(e, "email")} ></Input>
-                <Input value={this.state.senha} placeholder="digite sua senha" onChange={(e) => this.handleChange(e, "senha")}  ></Input>
-                <Button color="primary" text="Entrar" onClick={this.signIn} />                             
-            </div >
+                <Form>
+                    <Form.Group controlId="formBasicEmail1">
+                        <Form.Control value={this.state.email} type="email" placeholder="Digite seu email" onChange={(e) => this.handleChange(e, "email")} />
+                    </Form.Group>
+                    <Form.Group controlId="formBasicPassword2">
+                        <Form.Control value={this.state.senha} type="password" placeholder="Digite sua senha" onChange={(e) => this.handleChange(e, "senha")} />
+                    </Form.Group>
+                </Form>
+                    <Button variant="secondary" type="submit" onClick={this.signIn} >Entrar</Button>
+            </div>
         )
     }
 }
 
-
-export default compose( withFirebaseAuth({ firebaseAppAuth, }), withRouter,)(Login);
+export default compose(withFirebaseAuth({firebaseAppAuth,}),withRouter)(Login);

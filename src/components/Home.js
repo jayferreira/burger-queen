@@ -1,74 +1,29 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import SwipeableViews from 'react-swipeable-views';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import "../components/Home.css";
+// import { compose } from 'recompose';
+import { Tab, Tabs } from 'react-bootstrap'
+// import withFirebaseAuth from "react-with-firebase-auth";
+// import { BrowserRouter as Router, Route, Redirect, withRouter } from "react-router-dom";
 
 import Login from "../pages/Login"
 import Cadastro from "../pages/Cadastro"
 
-function TabContainer({ children, dir }) {
+function Home() {
   return (
-    <Typography component="div" dir={dir} style={{ padding: 8 * 3 }}>
-      {children}
-    </Typography>
-  );
-}
-
-TabContainer.propTypes = {
-  children: PropTypes.node.isRequired,
-  dir: PropTypes.string.isRequired,
-};
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    backgroundColor: theme.palette.background.paper,
-    width: 500,
-  },
-}));
-
-export default function FullWidthTabs() {
-  const classes = useStyles();
-  const theme = useTheme();
-  const [value, setValue] = React.useState(0);
-
-  function handleChange(event, newValue) {
-    setValue(newValue);
-  }
-
-  function handleChangeIndex(index) {
-    setValue(index);
-  }
-
-  return (
-    <div className={classes.root}>
-      <div className='home'>
-      <img src={ require('../images/logo.png') } />
-      <AppBar position="static" color="default">
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          variant="fullWidth"
-        >
-          <Tab label="Login" />
-          <Tab label="Cadastro" />
+    <div className='home'>
+      <img src={require('../images/logo.png')} />
+      <div>
+        <Tabs>
+          <Tab eventKey="home" title="Login">
+            <Login />
+          </Tab>
+          <Tab eventKey="profile" title="Cadastro">
+            <Cadastro />
+          </Tab>
         </Tabs>
-      </AppBar>
-      <SwipeableViews
-        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-        index={value}
-        onChangeIndex={handleChangeIndex}
-      >
-        <TabContainer dir={theme.direction}><Login /></TabContainer>
-        <TabContainer dir={theme.direction}><Cadastro /></TabContainer>
-      </SwipeableViews>
       </div>
     </div>
+
   );
 }
+
+export default Home;
