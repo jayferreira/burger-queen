@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
 import Salao from "./pages/Salao"
 import Cozinha from "./pages/Cozinha"
 import Home from "./components/Home"
 // import 'typeface-roboto';
-import { BrowserRouter, Router, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 
 function App() {
@@ -15,14 +15,10 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route path="/salao" component={Salao} />
           <Route path="/cozinha" component={Cozinha} />
-        </Switch>
+          </Switch>
       </BrowserRouter>
     </div>
-
-
   );
 }
-
-
 
 export default App;
