@@ -1,0 +1,16 @@
+.home-tabs{
+    background-color: #f1f1f1;
+}
+
+.nav-pills .nav-link.active{
+    background-color: #640000;
+} 
+
+a {
+    color: #2e382e;
+}
+
+.form-control{
+    margin-top: 15px;
+
+}

@@ -45,7 +45,7 @@ class Login extends Component {
         return (
             <div>
                 <Form>
-                    <Form.Group controlId="formBasicEmail1">
+                    <Form.Group controlId="formBasicEmail1" >
                         <Form.Control value={this.state.email} type="email" placeholder="Digite seu email" onChange={(e) => this.handleChange(e, "email")} />
                     </Form.Group>
                     <Form.Group controlId="formBasicPassword2">
