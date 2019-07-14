@@ -16,7 +16,7 @@ function NavbarDefault() {
                     {' Burger Queen'}
                 </Navbar.Brand>
                 <Navbar.Text>
-                    Logado como: <a href="#login">Mark Otto</a>
+                    Logado como: <a href="#login">Jay Ferreira</a>
                 </Navbar.Text>
             </Navbar>
         </div>

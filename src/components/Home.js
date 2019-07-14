@@ -1,6 +1,7 @@
 import React from 'react';
 // import { compose } from 'recompose';
-import { Tab, Tabs } from 'react-bootstrap'
+import './Home.css';
+import { Tab, Tabs, Pills, Nav } from 'react-bootstrap'
 // import withFirebaseAuth from "react-with-firebase-auth";
 // import { BrowserRouter as Router, Route, Redirect, withRouter } from "react-router-dom";
 
@@ -11,8 +12,8 @@ function Home() {
   return (
     <div className='home'>
       <img src={require('../images/logo.png')} />
-      <div>
-        <Tabs>
+      <div class="container home-tabs rounded pt-3 pb-3">
+        <Tabs fill variant="tabs" variant="pills" >
           <Tab eventKey="home" title="Login">
             <Login />
           </Tab>
